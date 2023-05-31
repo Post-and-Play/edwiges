@@ -37,6 +37,18 @@ func Readiness(c *gin.Context) {
 	c.String(http.StatusOK, "ok")
 }
 
+// SendMail godoc
+// @Summary      Sends a mail
+// @Description  With params sends a mail
+// @Tags         mail
+// @Accept       json
+// @Produce      json
+// @Param        mail  body  models.MailRequest  true  "Mail Model"
+// @Success      200  {object}  models.MailRequest
+// @Failure      400  {object}  map[string][]string
+// @Failure      409  {object}  map[string][]string
+// @Failure      500  {object}  map[string][]string
+// @Router       /mail [post]
 func SendMail(c *gin.Context) {
 	var sender models.Sender
 	var receiver models.Receiver

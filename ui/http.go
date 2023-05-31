@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/Post-and-Play/edwiges/docs"
 	"github.com/Post-and-Play/edwiges/services"
 	"github.com/gin-gonic/gin"
 )
@@ -42,15 +43,15 @@ func RunServer() {
 }
 
 func handleRoutes(r *gin.Engine) {
-	// docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.BasePath = "/"
 
 	for _, route := range healthCheck {
 		r.Handle(route.Method, route.Path, route.Handler)
 	}
 
-	// for _, route := range swagg {
-	// 	r.Handle(route.Method, route.Path, route.Handler)
-	// }
+	for _, route := range swagg {
+		r.Handle(route.Method, route.Path, route.Handler)
+	}
 
 	apiGroup := r.Group("/api")
 
