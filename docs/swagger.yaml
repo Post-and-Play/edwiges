@@ -1,0 +1,86 @@
+definitions:
+  models.MailRequest:
+    properties:
+      mail:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /healthz:
+    get:
+      consumes:
+      - application/json
+      description: Route to health check
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Healthcheck
+      tags:
+      - health
+  /mail:
+    post:
+      consumes:
+      - application/json
+      description: With params sends a mail
+      parameters:
+      - description: Mail Model
+        in: body
+        name: mail
+        required: true
+        schema:
+          $ref: '#/definitions/models.MailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MailRequest'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Sends a mail
+      tags:
+      - mail
+  /readiness:
+    get:
+      consumes:
+      - application/json
+      description: Route to readiness check
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Healthcheck
+      tags:
+      - health
+swagger: "2.0"
